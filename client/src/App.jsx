@@ -9,15 +9,7 @@ import Signup from "./Components/Signup/Signup"
 import Login from "./Components/Login/Login"
 import "./App.css"
 
-
 function App() {
-
-    /* Add routing here, routes look like -
-       /login - Login page
-       /signup - Signup page
-       /problemset/all/ - All problems (see problems array above)
-       /problems/:problem_slug - A single problem page
-     */
 
     return (
         <BrowserRouter>
@@ -26,8 +18,8 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/problemset/all/" element={<AllProblems problems={problems} />} />
-                <Route path="/problems/:pid/" element={<ProblemsPage problems={problems} />} />
+                <Route path="/problemset/all/" element={<AllProblems />} />
+                <Route path="/problems/:pid/" element={<ProblemsPage  />} />
                 <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
         </BrowserRouter>

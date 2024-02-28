@@ -1,29 +1,42 @@
 import React from 'react'
 
 import "./Login.css"
+import {useState} from "react";
+import {backendUrl} from "../../constants.js";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div id="login" className='flex-col'>
       <h1>Login</h1>
-      <form className='signup-form' method="post" action='/login'>
-
-        <div className='subform'>
-          <label htmlFor="name">Name: </label>
-          <input type="text" name='name' placeholder='Your Name' />
-        </div>
-
+      <div className='signup-form'>
         <div className='subform'>
           <label htmlFor="email">Email: </label>
-          <input type="text" name='email' placeholder='Your Email' />
+          <input onChange={(e) => {
+            setEmail(e.target.value)
+          }} type="text" name='email' placeholder='Your Email' />
         </div>
 
         <div className='subform'>
           <label htmlFor="password">Password: </label>
-          <input type="text" name='password' placeholder='Your Password' />
+          <input onChange={(e) => setPassword(e.target.value)} type="text" name='password' placeholder='Your Password' />
         </div>
 
-      </form>
+        <button type="submit" id="test" onClick={async (e) => {
+          const response = await fetch(`${backendUrl}/login`, {
+            method: "POST",
+            body: JSON.stringify({
+              email: email,
+              password: password
+            })
+          });
+
+          const json = await response.json();
+          localStorage.setItem("token", json.token);
+        }}>Login</button>
+      </div>
     </div>
   )
 }
